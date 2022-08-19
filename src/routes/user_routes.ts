@@ -92,7 +92,7 @@ userRouter.get('/users/search/', ensureAuthenticated, async (request, response) 
         return response.status(200).json({users});
 
     } catch(err) {
-        
+        return response.status(400).json({ message: err.message});
     }
 });
 
