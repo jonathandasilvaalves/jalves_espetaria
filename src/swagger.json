@@ -2,8 +2,8 @@
     "openapi": "3.0.0",
     "info": {
         "version": "1.0.0",
-        "title": "Seans-TypeScript-NodeJS-CRUD-REST-API-Boilerplate",
-        "description": "A minimal and easy to follow example of what you need to create a CRUD style API in NodeJs using TypeScript",
+        "title": "Jalves Espetaria",
+        "description": "",
         "license": {
             "name": "MIT",
             "url": "https://opensource.org/licenses/MIT"
@@ -87,10 +87,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/user"
-                        }
+                        "description": "OK"
                     },
                     "400": {
                         "description": "Email address already used."
@@ -128,10 +125,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/user"
-                        }
+                        "description": "OK"
                     },
                     "400": {
                         "description": "Email address already used."
@@ -153,7 +147,7 @@
                         "in": "path",
                         "name": "id",
                         "required": true,
-                        "description": "Cat with id",
+                        "description": "User with id",
                         "schema": {
                             "$ref": "#/definitions/id"
                         }
@@ -161,10 +155,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/user"
-                        }
+                        "description": "OK"
                     },
                     "400": {
                         "description": "User do not exist!"
@@ -177,21 +168,20 @@
                 "tags": [
                     "User"
                 ],
-                "security": [{"bearerAuth":[]}],
                 "summary": "Get users with name and page",
                 "parameters": [
                     {
                         "in": "query",
                         "name": "name",
-                        "description": "Cat with name",
+                        "description": "User with name",
                         "schema": {
-                            "$ref": "#/definitions/id"
+                            "$ref": "#/definitions/name"
                         }
                     },
                     {
                         "in": "query",
                         "name": "page",
-                        "description": "Cat with page",
+                        "description": "User with page",
                         "schema": {
                             "$ref": "#/definitions/id"
                         }
@@ -199,10 +189,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/user"
-                        }
+                        "description": "OK"
                     },
                     "400": {
                         "description": "User do not exist!"
@@ -212,7 +199,137 @@
                     }
                 }
             }
-        }
+        },    
+        "/product/create": {
+            "post":{
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Create a product in system",
+                "requestBody": {
+                    "description": "Product Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/product"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Email address already used."
+                    },
+                    "401": {
+                        "description": "JWT token is missing!"
+                    }
+                }
+            }
+        },
+        "/product/update/{id}": {
+            "put":{
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Update a product in system",
+                "requestBody": {
+                    "description": "Product Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/product"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Product with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Email address already used."
+                    },
+                    "401": {
+                        "description": "JWT token is missing!"
+                    }
+                }
+            }
+        },
+        "/product/delete/{id}": {
+            "delete":{
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Delete a product in system",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Product with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Product do not exist!"
+                    },
+                    "401": {
+                        "description": "JWT token is missing!"
+                    }
+                }
+            }
+        },
+        "/product/search": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get product with name",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "name",
+                        "description": "Product with name",
+                        "schema": {
+                            "$ref": "#/definitions/name"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "User do not exist!"
+                    },
+                    "401": {
+                        "description": "JWT token is missing!"
+                    }
+                }
+            }
+        }    
     },
     "definitions": {
         "id": {
@@ -221,6 +338,9 @@
                     "type": "string"
                 }
             }
+        },
+        "name": {
+            "type": "string"
         },
         "userRequest":{
             "type": "object",
@@ -300,12 +420,15 @@
                 }
             }
         },
-        "securitySchemes": {
-            "bearerAuth": {
-              "type": "http",
-              "scheme": "bearer",
-              "bearerFormat": "JWT"
+        "product":{
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "qty": {
+                    "type": "string"
+                }
             }
-          }
+        }
     }
 }
