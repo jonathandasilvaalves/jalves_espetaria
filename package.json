@@ -8,9 +8,13 @@
     "dev:server": "ts-node-dev --inspect --ignore-watch node_modules src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "swagger-autogen": "node ./src/swagger.js",
-    "test": "NODE_ENV=test jest"
+    "test": "NODE_ENV=test jest",
+    "test:coverage": "jest --collectCoverage true",
+    "mutation-test": "stryker run"
   },
   "devDependencies": {
+    "@stryker-mutator/core": "^8.2.6",
+    "@stryker-mutator/jest-runner": "^8.2.6",
     "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.8",
     "@types/jest": "^29.5.12",
