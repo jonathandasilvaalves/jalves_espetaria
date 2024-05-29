@@ -15,6 +15,9 @@ describe('AuthenticateUserService', () => {
         logging: false
     });
   });
+  afterEach(async () => {
+    await getConnection().close();
+  });
 
   const user = {
     name: "Jonathan",
@@ -36,5 +39,35 @@ describe('AuthenticateUserService', () => {
 
     expect(result).toHaveProperty('user');
     expect(result).toHaveProperty('token');
+  });
+
+  it('should validate incorrect email/password combination', async () => {
+    const authenticateUserService = new AuthenticateUserService();
+
+    try {
+      const result = await authenticateUserService.execute({
+      email: user.email,
+      password: user.password
+    });
+
+    } catch(error: any) {
+      expect(error.message).toBe('Incorrect email/password combination.');
+    }
+  });
+
+  it('should validate incorrect password', async () => {
+    const authenticateUserService = new AuthenticateUserService();
+    const createUser = new CreateUserService();
+
+    try {
+      await createUser.execute(user);
+      await authenticateUserService.execute({
+      email: user.email,
+      password: 'teste3343'
+    });
+
+    } catch(error: any) {
+      expect(error.message).toBe('Incorrect email/password combination.');
+    }
   });
 })

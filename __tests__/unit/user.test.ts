@@ -46,4 +46,19 @@ describe('UserService', () => {
         expect(error.message).toBe('Email address already used');
     }
   });
+
+  it('should validation invalid user', async ()=> {
+    const userService = new CreateUserService();
+
+    try {
+      await userService.execute(user);
+      const userInvalid = await userService.execute(user);
+
+      if(userInvalid) {
+        expect(userInvalid).toBe('Error');
+      }
+    } catch(error: any) {
+      expect(error).toBeInstanceOf(AppError);
+    }
+  });
 })
