@@ -12,7 +12,7 @@ class SearchProductServer {
         const productRepository = getRepository(Product);
 
         if(name !== undefined) {
-            console.log('caiu aqui')
+
             const products = await productRepository.find({
                 skip: page-1,
                 take: 10,
