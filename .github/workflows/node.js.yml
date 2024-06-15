@@ -1,4 +1,3 @@
-
 name: CI - Project
 
 on:
@@ -20,9 +19,9 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '18'
+
     - name: Install Dependencies
-    - run: yarn install
+      run: yarn install
 
     - name: Run Unit Tests
-    - run: yarn test
-
+      run: yarn test
